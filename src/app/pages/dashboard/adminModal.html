@@ -5,7 +5,12 @@
     
     <div class="container">
         <div class = "row">
-            <button ng-if = "admin" ng-click = "openNewPass()" style = "margin-bottom: 10px;" class="btn btn-success btn-icon">+</button>
+        </div>
+        <div class="row" >
+          <div class="col-md-2" style="margin-top:10px">
+            <button ng-click = "openNewPass()" style = "margin-bottom: 10px;display: inline-block" class="btn btn-success btn-icon">+</button>
+          </div>
+
         </div>
 
 
@@ -30,7 +35,8 @@
                     <thead>
                         <tr rowspan="3">
                             <th>City</th>
-                            <th>State</th>
+                            <!-- <th>State</th> -->
+                   
                             <th>Limit</th>
                         </tr>
                     </thead>
@@ -41,11 +47,11 @@
                             {{ city.cityName || '-' }}
                           </span>
                         </td>
-                    <td style = "width:100px" class="select-td">    
+                    <!-- <td style = "width:100px" class="select-td">    
                       <span editable-select="city.product" e-name="product" e-form="rowform" e-selectpicker e-ng-options="product for product in $parent.products">
                         {{ city.stateName || '-' }}
                       </span>
-                    </td>
+                    </td> -->
                     <td>
                       <span editable-number="city.seq_no" e-step="any" e-name="seq_no"  e-form="rowform" e-required>
                           {{ city.dailyLimit || '-' }}
@@ -65,5 +71,5 @@
 </div>
 <div class="modal-footer">
     <!-- <button class="btn btn-primary" type="button" ng-click="pc.ok()">OK</button> -->
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel();cancelOld()">Cancel</button>
 </div>

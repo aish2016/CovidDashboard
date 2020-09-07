@@ -30,6 +30,7 @@
         var layoutColors = baConfig.colors;
         var id = $element[0].getAttribute('id');
         var pieColor = baUtil.hexToRGB(baConfig.colors.defaultText, 0.2);
+        $scope.selectedCity = { selectedCityObj : []};
 
 
         var limitDate = new Date();
@@ -193,6 +194,16 @@
         }
 
         $scope.citiesList = ["Mumbai ", "Delhi ", "Bangalore ", "Hyderabad ", "Ahmedabad ", "Chennai ", "Kolkata ", "Surat", "Pune", "Jaipur", "Lucknow", "Kanpur", "Nagpur", "Indore", "Thane", "Bhopal", "Visakhapatnam", "Pimpri & Chinchwad", "Patna", "Vadodara", "Ghaziabad", "Ludhiana", "Agra", "Nashik", "Faridabad", "Meerut", "Rajkot", "Kalyan & Dombivali", "Vasai Virar", "Varanasi", "Srinagar", "Aurangabad", "Dhanbad", "Amritsar", "Navi Mumbai", "Allahabad", "Ranchi", "Haora", "Coimbatore", "Jabalpur", "Gwalior", "Vijayawada", "Jodhpur", "Madurai", "Raipur", "Kota", "Guwahati", "Chandigarh", "Solapur", "Hubli and Dharwad", "Bareilly", "Moradabad", "Mysore", "Gurgaon", "Aligarh", "Jalandhar", "Tiruchirappalli", "Bhubaneswar", "Salem", "Mira and Bhayander", "Thiruvananthapuram", "Bhiwandi", "Saharanpur", "Gorakhpur", "Guntur", "Bikaner", "Amravati", "Noida", "Jamshedpur", "Bhilai Nagar", "Warangal", "Cuttack", "Firozabad", "Kochi", "Bhavnagar", "Dehradun", "Durgapur", "Asansol", "Nanded Waghala", "Kolapur", "Ajmer", "Gulbarga", "Jamnagar", "Ujjain", "Loni", "Siliguri", "Jhansi", "Ulhasnagar", "Nellore", "Jammu", "Sangli Miraj Kupwad", "Belgaum", "Mangalore", "Ambattur", "Tirunelveli", "Malegoan", "Gaya", "Jalgaon", "Udaipur", "Maheshtala"]
+      
+        
+        $scope.citySelectOptions = $scope.citiesList.map(function(item){
+            var option  = { 
+                label : item,
+                value : item
+            }
+            return option
+        })
+      
         $scope.state = ["Andhra Pradesh",
             "Arunachal Pradesh",
             "Assam",
@@ -241,8 +252,14 @@
             $scope.$modalInstance.dismiss('cancel');
         };
 
+        $scope.cancelOld = function () {
+            $scope.oldModalInstance && $scope.oldModalInstance.dismiss('cancel');
+            $scope.oldModalInstance = null;
+        };
+
         $scope.selectedState = ""
-        $scope.selectedCity = ""
+        $scope.selectedCity = { selectedCityObj : []};
+
         $scope.selectedCityLimit = ""
 
         $scope.saveLimit = function () {
@@ -255,8 +272,8 @@
             limitDate = mm  + dd + yyyy;
         
             dashboardService.setDailyLimit({
-                "stateName": $scope.selectedState,
-                "cityName": $scope.selectedCity,
+                "stateName": "dummy", //$scope.selectedState,
+                "cityName": $scope.selectedCity.selectedCityObj.label,
                 "dailyLimit": $scope.selectedCityLimit,
                 "limitDate": limitDate
             }).then(
@@ -279,6 +296,7 @@
 
 
         $scope.openNewPass = function (data) {
+            $scope.oldModalInstance = angular.copy($scope.$modalInstance);
             $scope.$modalInstance = $uibModal.open({
                 scope: $scope,
                 templateUrl: "/app/pages/dashboard/newPasslimit.html",
@@ -425,10 +443,13 @@
 
         $scope.$watch('customDate', function (value) {
             $scope.customDate = value
+            $scope.selectedCity.selectedCityObj = {}
             $scope.getCitiesLimit();
         });
 
-
+        $scope.$watch('selectedCity.selectedCityObj', function (value) {
+            //$scope.cityChange(value)
+        });
 
         $scope.$watch('selectedState', function (value) {
             $scope.selectedState = value

@@ -37,7 +37,7 @@
           }
           else{
             $rootScope.admin = false;
-            localStorage.setObject('admin', true);
+            localStorage.setObject('admin', false);
           }
           $state.go('main.dashboard');
         }

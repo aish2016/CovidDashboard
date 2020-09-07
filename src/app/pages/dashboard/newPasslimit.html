@@ -5,9 +5,9 @@
     
     <div class="container">
        
-        <div class="row">
+        <div class="row" >
+            <div class="col-md-2" style="margin-top:10px">
             <h5>Select Date</h5>
-            <div class="col-md-2">
               <p class="input-group">
                 <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="customDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                 <span class="input-group-btn">
@@ -17,23 +17,49 @@
             </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <h5>Select State</h5>
             <select ng-model="$parent.selectedState" ng-options="x for x in state">
             </select>
-        </div>
+        </div> -->
 
        
-        <div class="row">
+        <!-- <div class="row">
             <h5>Select City</h5>
             <select ng-model="$parent.selectedCity" ng-options="x for x in citiesList">
             </select>
+        </div> -->
+
+        <div class="row" >
+                  
+            <!-- <select ng-model="$parent.selectedState" ng-options="x for x in state">
+            </select> -->
+            <div class="col-md-2" style="margin-top:10px">
+              <h5>Select City</h5>
+              <ui-select style="z-index: 99999" ng-blur="open1()" ng-model="selectedCity.selectedCityObj"
+                      class="btn-group bootstrap-select form-control"
+                      ng-disabled="false"
+                      append-to-body="true"
+                      search-enabled="false">
+            <ui-select-match placeholder="City Select">
+              <span> {{$select.selected.label}}</span>
+            </ui-select-match>
+            <ui-select-choices  repeat="city in citySelectOptions">
+              <span ng-bind-html="city.label"></span>
+            </ui-select-choices>
+            </ui-select>
+         
+          </ui-select>
+        </div>
         </div>
 
-        <div class="row">
-            <h5>Set Limit</h5>
-            <input type="text" ng-model="$parent.selectedCityLimit" id="input01" placeholder="Text">
-        </div>
+        <div class="row" >
+            <div class="col-md-2" style="margin-top:10px">
+                              <h5>Set Limit</h5>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Pass Limit" ng-model="$parent.selectedCityLimit" required>
+            </div>
+
+          </div>
     </div>  
     
 
